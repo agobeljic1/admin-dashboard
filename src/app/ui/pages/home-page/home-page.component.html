@@ -1,1 +1,8 @@
-<p>home-page works!</p>
+<ng-container *ngrxLet="loggedUsername$; let loggedUsername">
+  <div
+    class="d-flex align-items-center justify-content-center w-full h-full flex-direction-column"
+  >
+    <h1 *ngIf="!loggedUsername">Please login to continue</h1>
+    <h1 *ngIf="loggedUsername">Logged in</h1>
+  </div>
+</ng-container>
