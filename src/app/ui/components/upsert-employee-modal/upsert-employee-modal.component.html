@@ -1,0 +1,39 @@
+<form [formGroup]="form">
+  <button class="close-icon button-img" mat-dialog-close>
+    <img src="assets/close-icon.svg" alt="close" />
+  </button>
+  <label *ngIf="data.employee" class="modal-title">Update employee</label>
+  <label *ngIf="!data.employee" class="modal-title">Create employee</label>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Name</mat-label>
+    <input type="text" matInput formControlName="name" />
+    <mat-error>Name is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Birth Date</mat-label>
+    <input
+      matInput
+      [matDatepicker]="pickerBirthDate"
+      placeholder="Choose a date"
+      formControlName="birthDate"
+    />
+    <mat-datepicker-toggle matSuffix [for]="$any(pickerBirthDate)">
+    </mat-datepicker-toggle>
+    <mat-datepicker #pickerBirthDate></mat-datepicker>
+    <mat-error>Birth Date is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Address</mat-label>
+    <input type="text" matInput formControlName="address" />
+    <mat-error>Address is required</mat-error>
+  </mat-form-field>
+
+  <button (click)="submitUpsertEmployee()" mat-raised-button color="primary">
+    <label *ngIf="!data.employee">Create employee</label>
+    <label *ngIf="data.employee">Update employee</label>
+    <mat-spinner *ngIf="loading$ | async" [diameter]="30"></mat-spinner>
+  </button>
+</form>

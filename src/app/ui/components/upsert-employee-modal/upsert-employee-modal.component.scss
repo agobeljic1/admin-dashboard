@@ -1,0 +1,27 @@
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+
+  .close-icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.modal-title {
+  font-size: 20px;
+  line-height: 20px;
+  text-align: center;
+  color: #334144;
+  margin-bottom: 20px;
+}
+
+form > * {
+  width: 100%;
+}

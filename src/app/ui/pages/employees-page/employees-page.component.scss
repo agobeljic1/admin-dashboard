@@ -1,0 +1,35 @@
+.employees-title {
+  margin-bottom: 0;
+}
+
+.employees-table {
+  margin-top: 8px !important;
+  overflow-x: scroll;
+}
+
+.mat-row {
+  height: auto;
+  min-height: 48px;
+  min-width: 800px;
+}
+.mat-header-cell,
+.mat-cell {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  word-break: break-all;
+  padding: 4px;
+}
+
+.loading-row {
+  padding: 8px;
+}
+
+.table-row {
+  &:hover {
+    background-color: rgb(245, 245, 245);
+  }
+  * {
+    cursor: pointer;
+  }
+}

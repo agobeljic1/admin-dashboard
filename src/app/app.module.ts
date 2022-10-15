@@ -26,7 +26,13 @@ import { environment } from 'src/environments/environment';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { LoginModalComponent } from './ui/components/login-modal/login-modal.component';
 import { RegisterModalComponent } from './ui/components/register-modal/register-modal.component';
+import { UpsertEmployeeModalComponent } from './ui/components/upsert-employee-modal/upsert-employee-modal.component';
 
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatTimepickerModule,
+  NgxMatNativeDateModule,
+} from '@angular-material-components/datetime-picker';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +43,7 @@ import { RegisterModalComponent } from './ui/components/register-modal/register-
     HeaderComponent,
     LoginModalComponent,
     RegisterModalComponent,
+    UpsertEmployeeModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +55,10 @@ import { RegisterModalComponent } from './ui/components/register-modal/register-
     ReactiveFormsModule,
     ReactiveComponentModule,
     HttpClientModule,
+
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([EmployeeEffects, ShiftEffects, AuthEffects]),
   ],
