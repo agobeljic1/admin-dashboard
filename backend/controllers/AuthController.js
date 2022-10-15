@@ -53,7 +53,7 @@ module.exports = function (app, db) {
     }
   });
 
-  app.post("/refresh-token", async (req, res) => {
+  app.get("/refresh-token", async (req, res) => {
     const refreshToken = req.cookies?.admindashboard;
     if (!refreshToken) {
       return res.status(401).json({ error: "Unauthorized" });

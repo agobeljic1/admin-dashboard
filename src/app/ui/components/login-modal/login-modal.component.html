@@ -1,0 +1,32 @@
+<ng-container *ngrxLet="loading$; let loading">
+  <form [formGroup]="form" class="modal">
+    <button class="close-icon button-img" mat-dialog-close>
+      <img src="assets/close-icon.svg" alt="close" />
+    </button>
+    <label class="modal-title">Welcome Back</label>
+    <mat-form-field appearance="outline">
+      <mat-label>Username</mat-label>
+      <input matInput type="text" formControlName="username" />
+      <mat-error>Username is required</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password" />
+      <mat-error>Password is required</mat-error>
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="loading"
+      (click)="submitLogin()"
+    >
+      <div
+        class="d-flex align-items-center justify-content-center login-button"
+      >
+        <label>Login to your Account</label>
+        <mat-spinner *ngIf="loading" color="warn" [diameter]="30"></mat-spinner>
+      </div>
+    </button>
+  </form>
+</ng-container>

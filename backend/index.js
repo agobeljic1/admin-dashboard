@@ -23,6 +23,7 @@ const { verifyTokenAndSetUser } = require("./utils/Auth.js");
 
 require("./controllers/AuthController.js")(app, db);
 app.use(verifyTokenAndSetUser);
+require("./controllers/UserController.js")(app, db);
 require("./controllers/EmployeeController.js")(app, db);
 require("./controllers/ShiftController.js")(app, db);
 

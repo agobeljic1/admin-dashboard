@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { StoreModule } from '@ngrx/store';
@@ -21,6 +22,11 @@ import { HeaderComponent } from './ui/components/header/header.component';
 import { ShiftEffects } from './store/shift/shift.effects';
 import { AuthEffects } from './store/auth/auth.effects';
 
+import { environment } from 'src/environments/environment';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { LoginModalComponent } from './ui/components/login-modal/login-modal.component';
+import { RegisterModalComponent } from './ui/components/register-modal/register-modal.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,6 +35,8 @@ import { AuthEffects } from './store/auth/auth.effects';
     EmployeesPageComponent,
     EmployeeDetailsPageComponent,
     HeaderComponent,
+    LoginModalComponent,
+    RegisterModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,10 +47,18 @@ import { AuthEffects } from './store/auth/auth.effects';
     MaterialModule,
     ReactiveFormsModule,
     ReactiveComponentModule,
+    HttpClientModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([EmployeeEffects, ShiftEffects, AuthEffects]),
   ],
-  providers: [],
+  providers: [
+    { provide: 'BASE_API_URL', useValue: environment.apiUrl },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

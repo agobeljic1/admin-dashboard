@@ -1,0 +1,47 @@
+<ng-container *ngrxLet="loading$; let loading">
+  <form [formGroup]="form" class="modal">
+    <button class="close-icon button-img" mat-dialog-close>
+      <img src="assets/close-icon.svg" alt="close" />
+    </button>
+    <label class="modal-title">Create an account</label>
+    <mat-form-field appearance="outline">
+      <mat-label>Username</mat-label>
+      <input matInput type="text" formControlName="username" />
+      <mat-error>Username is required</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password" />
+      <mat-error *ngIf="password?.hasError('required')"
+        >Password is required</mat-error
+      >
+      <mat-error *ngIf="password?.hasError('minlength')"
+        >Password needs to have at least 8 characters</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Repeat Password</mat-label>
+      <input matInput type="password" formControlName="repeatPassword" />
+      <mat-error *ngIf="repeatPassword?.hasError('required')"
+        >Repeat Password is required</mat-error
+      >
+      <mat-error *ngIf="repeatPassword?.hasError('confirmedValidator')"
+        >Password not matching</mat-error
+      >
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="loading"
+      (click)="submitRegister()"
+    >
+      <div
+        class="d-flex align-items-center justify-content-center register-button"
+      >
+        <label>Register</label>
+        <mat-spinner *ngIf="loading" color="warn" [diameter]="30"></mat-spinner>
+      </div>
+    </button>
+  </form>
+</ng-container>

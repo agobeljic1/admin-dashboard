@@ -1,1 +1,40 @@
-<p>header works!</p>
+<ng-container *ngrxLet="loadingHeader$; let loadingHeader">
+  <ng-container *ngrxLet="loggedUsername$; let loggedUsername">
+    <div
+      class="d-flex w-full align-items-center justify-content-between header"
+    >
+      <h2>Dashboard</h2>
+      <mat-spinner [diameter]="30" *ngIf="loadingHeader"></mat-spinner>
+      <div
+        class="d-flex align-items-center login-buttons"
+        *ngIf="!loadingHeader"
+      >
+        <h2 *ngIf="loggedUsername">Welcome {{ loggedUsername }}</h2>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="openLogin()"
+          *ngIf="!loggedUsername"
+        >
+          Login
+        </button>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="openRegister()"
+          *ngIf="!loggedUsername"
+        >
+          Signup
+        </button>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="logout()"
+          *ngIf="loggedUsername"
+        >
+          Sign out
+        </button>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
