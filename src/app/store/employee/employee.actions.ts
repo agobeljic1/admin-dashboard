@@ -95,21 +95,10 @@ export const loadEmployeeByIdFromRouteFailure = createAction(
   props<{ message: string }>()
 );
 
-export const loadEmployeeShiftsByIdFromRoute = createAction(
-  '[Employee Details Page] Load Employee Shifts By Id From Route',
-  props<{ employeeId: string }>()
-);
-
-export const loadEmployeeShiftsByIdFromRouteSuccess = createAction(
-  '[Employee Details Page] Load Employee Shifts By Id From Route Success',
-  props<{ shifts: Shift[] }>()
-);
-
-export const loadEmployeeShiftsByIdFromRouteFailure = createAction(
-  '[Employee Details Page] Load Employee Shifts By Id From Route Failure',
-  props<{ message: string }>()
-);
-
 export const redirectToEmployeesSuccess = createAction(
   '[Employee Details Page] Redirect to Employees Success'
+);
+
+export const showMessageSuccess = createAction(
+  '[Employee API] Show Message Success'
 );

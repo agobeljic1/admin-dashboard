@@ -151,7 +151,7 @@ export class AuthEffects {
         AuthActions.registerUserFailure,
         AuthActions.logoutUserSuccess
       ),
-      tap(({ message }) => this.snackBar.open(message)),
+      tap(({ message }) => this.snackBar.open(message, '', { duration: 3000 })),
       map(() => AuthActions.showMessageSuccess())
     )
   );

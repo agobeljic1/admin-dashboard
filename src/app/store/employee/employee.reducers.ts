@@ -10,9 +10,6 @@ import {
   loadEmployeeByIdFromRouteSuccess,
   loadEmployees,
   loadEmployeesFailure,
-  loadEmployeeShiftsByIdFromRoute,
-  loadEmployeeShiftsByIdFromRouteFailure,
-  loadEmployeeShiftsByIdFromRouteSuccess,
   loadEmployeesSuccess,
 } from './employee.actions';
 
@@ -24,7 +21,6 @@ export interface EmployeesState {
   employeeById: Employee | null;
   employeeShiftsById: Shift[];
   loadingEmployeeById: boolean;
-  loadingEmployeeShiftsById: boolean;
 }
 
 export const initialState: EmployeesState = {
@@ -35,7 +31,6 @@ export const initialState: EmployeesState = {
   employeeById: null,
   employeeShiftsById: [],
   loadingEmployeeById: false,
-  loadingEmployeeShiftsById: false,
 };
 
 export const employeesReducer = createReducer(
@@ -77,18 +72,5 @@ export const employeesReducer = createReducer(
   on(loadEmployeeByIdFromRouteFailure, (state) => ({
     ...state,
     loadingEmployeeById: false,
-  })),
-  on(loadEmployeeShiftsByIdFromRoute, (state: EmployeesState) => ({
-    ...state,
-    loadingEmployeeShiftsById: true,
-  })),
-  on(loadEmployeeShiftsByIdFromRouteSuccess, (state, { shifts }) => ({
-    ...state,
-    loadingEmployeeShiftsById: false,
-    employeeShiftsById: shifts,
-  })),
-  on(loadEmployeeShiftsByIdFromRouteFailure, (state) => ({
-    ...state,
-    loadingEmployeeShiftsById: false,
   }))
 );

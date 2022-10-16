@@ -4,6 +4,13 @@
   box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.05);
   padding: 0 20px 0 25px;
 
+  .nav-links {
+    * {
+      margin-right: 16px;
+      cursor: pointer;
+    }
+  }
+
   h2 {
     margin-bottom: 0;
   }
@@ -13,4 +20,9 @@
       margin-left: 8px;
     }
   }
+}
+
+.active {
+  font-weight: bold;
+  color: blue;
 }

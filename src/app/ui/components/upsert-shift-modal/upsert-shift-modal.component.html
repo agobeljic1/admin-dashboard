@@ -1,0 +1,47 @@
+<form [formGroup]="form">
+  <button class="close-icon button-img" mat-dialog-close>
+    <img src="assets/close-icon.svg" alt="close" />
+  </button>
+  <label *ngIf="data.shift" class="modal-title">Update shift</label>
+  <label *ngIf="!data.shift" class="modal-title">Create shift</label>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Clock in</mat-label>
+    <input
+      matInput
+      [ngxMatDatetimePicker]="pickerClockIn"
+      placeholder="Choose a date"
+      formControlName="clockIn"
+    />
+    <mat-datepicker-toggle matSuffix [for]="$any(pickerClockIn)">
+    </mat-datepicker-toggle>
+    <ngx-mat-datetime-picker #pickerClockIn> </ngx-mat-datetime-picker>
+    <mat-error>Clock in is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Clock out</mat-label>
+    <input
+      matInput
+      [ngxMatDatetimePicker]="pickerClockOut"
+      placeholder="Choose a date"
+      formControlName="clockOut"
+    />
+    <mat-datepicker-toggle matSuffix [for]="$any(pickerClockOut)">
+    </mat-datepicker-toggle>
+    <ngx-mat-datetime-picker #pickerClockOut> </ngx-mat-datetime-picker>
+    <mat-error>Clock out is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="description"></textarea>
+    <mat-error>Description is required</mat-error>
+  </mat-form-field>
+
+  <button (click)="submitUpsertShift()" mat-raised-button color="primary">
+    <label *ngIf="!data.shift">Create shift</label>
+    <label *ngIf="data.shift">Update shift</label>
+    <mat-spinner *ngIf="loading$ | async" [diameter]="30"></mat-spinner>
+  </button>
+</form>

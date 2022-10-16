@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap, tap } from 'rxjs';
@@ -13,7 +14,8 @@ export class EmployeeEffects {
     private actions$: Actions,
     private employeeService: EmployeeService,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   employees$ = createEffect(() =>
@@ -181,6 +183,22 @@ export class EmployeeEffects {
           employeeId,
         });
       })
+    )
+  );
+
+  showMessage$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(
+        EmployeeActions.loadEmployeeByIdFromRouteFailure,
+        EmployeeActions.createEmployeeSuccess,
+        EmployeeActions.createEmployeeFailure,
+        EmployeeActions.updateEmployeeSuccess,
+        EmployeeActions.updateEmployeeFailure,
+        EmployeeActions.deleteEmployeeFailure,
+        EmployeeActions.deleteEmployeeFailure
+      ),
+      tap(({ message }) => this.snackBar.open(message, '', { duration: 3000 })),
+      map(() => EmployeeActions.showMessageSuccess())
     )
   );
 }

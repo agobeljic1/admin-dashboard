@@ -1,3 +1,5 @@
+const e = require("cors");
+
 module.exports = function (app, db) {
   app.post("/shifts", (req, res) => {
     const { clockIn, clockOut, employeeId, description } = req.body;
@@ -20,7 +22,7 @@ module.exports = function (app, db) {
   app.put("/shifts", (req, res) => {
     const { clockIn, clockOut, description, id } = req.body;
 
-    db.food
+    db.shift
       .update(
         {
           clockIn,
@@ -59,6 +61,9 @@ module.exports = function (app, db) {
 
   app.get("/shifts", async (req, res) => {
     const { employeeId, offset, limit, from, to } = req.query;
+    if (!employeeId) {
+      return res.status(400).json({ error: "Missing employee id" });
+    }
 
     const where = {};
     if (from) {
@@ -86,6 +91,7 @@ module.exports = function (app, db) {
         res.json({ shifts });
       })
       .catch((e) => {
+        console.log(e);
         res.status(500).json({ error: "Failed to fetch shifts" });
       });
   });

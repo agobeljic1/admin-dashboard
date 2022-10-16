@@ -33,6 +33,7 @@ import {
   NgxMatTimepickerModule,
   NgxMatNativeDateModule,
 } from '@angular-material-components/datetime-picker';
+import { UpsertShiftModalComponent } from './ui/components/upsert-shift-modal/upsert-shift-modal.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +45,7 @@ import {
     LoginModalComponent,
     RegisterModalComponent,
     UpsertEmployeeModalComponent,
+    UpsertShiftModalComponent,
   ],
   imports: [
     BrowserModule,

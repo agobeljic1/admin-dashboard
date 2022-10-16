@@ -28,13 +28,3 @@ export const selectLoadingEmployeeById = createSelector(
   selectEmployees,
   (state: EmployeesState) => state.loadingEmployeeById
 );
-
-export const selectEmployeeShiftsById = createSelector(
-  selectEmployees,
-  (state: EmployeesState) => state.employeeShiftsById
-);
-
-export const selectLoadingEmployeeShiftsById = createSelector(
-  selectEmployees,
-  (state: EmployeesState) => state.loadingEmployeeShiftsById
-);

@@ -6,6 +6,7 @@ import { Employee } from 'src/app/model/Employee';
 import { Shift } from 'src/app/model/Shift';
 import { AppState } from 'src/app/store/app.state';
 import { EmployeeActions, EmployeeSelectors } from 'src/app/store/employee';
+import { ShiftActions, ShiftSelectors } from 'src/app/store/shift';
 
 @Component({
   selector: 'app-employee-details-page',
@@ -18,6 +19,8 @@ export class EmployeeDetailsPageComponent implements OnInit {
   employeeShifts$!: Observable<Shift[]>;
   loading$!: Observable<boolean>;
   loadingShifts$!: Observable<boolean>;
+
+  displayedColumns = ['id', 'clockIn', 'clockOut', 'description', 'options'];
 
   constructor(
     private store: Store<AppState>,
@@ -35,24 +38,20 @@ export class EmployeeDetailsPageComponent implements OnInit {
     );
 
     this.store.dispatch(
-      EmployeeActions.loadEmployeeShiftsByIdFromRoute({
+      ShiftActions.loadShifts({
         employeeId,
       })
     );
 
     this.employee$ = this.store.select(EmployeeSelectors.selectEmployeeById);
 
-    this.employeeShifts$ = this.store.select(
-      EmployeeSelectors.selectEmployeeShiftsById
-    );
-
     this.loading$ = this.store.select(
       EmployeeSelectors.selectLoadingEmployeeById
     );
 
-    this.loadingShifts$ = this.store.select(
-      EmployeeSelectors.selectLoadingEmployeeShiftsById
-    );
+    this.employeeShifts$ = this.store.select(ShiftSelectors.selectAllShifts);
+
+    this.loadingShifts$ = this.store.select(ShiftSelectors.selectLoadingShifts);
   }
 
   deleteEmployee(employee) {
@@ -61,5 +60,20 @@ export class EmployeeDetailsPageComponent implements OnInit {
 
   updateEmployee(employee) {
     this.store.dispatch(EmployeeActions.openUpsertEmployeeModal({ employee }));
+  }
+
+  openNewShiftByEmployeeId(employee) {
+    this.store.dispatch(
+      ShiftActions.openUpsertShiftModal({ employee, shift: null })
+    );
+  }
+
+  onClickShift(employee, shift) {
+    this.store.dispatch(ShiftActions.openUpsertShiftModal({ employee, shift }));
+  }
+
+  deleteShift(event, shift) {
+    event.stopPropagation();
+    this.store.dispatch(ShiftActions.deleteShift({ shift }));
   }
 }

@@ -3,7 +3,15 @@
     <div
       class="d-flex w-full align-items-center justify-content-between header"
     >
-      <h2>Dashboard</h2>
+      <div class="d-flex align-items-center nav-links">
+        <label routerLink="/home" routerLinkActive="active">Dashboard</label>
+        <label
+          routerLink="/employees"
+          routerLinkActive="active"
+          *ngIf="loggedUsername"
+          >Employees</label
+        >
+      </div>
       <mat-spinner [diameter]="30" *ngIf="loadingHeader"></mat-spinner>
       <div
         class="d-flex align-items-center login-buttons"

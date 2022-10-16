@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { Employee } from 'src/app/model/Employee';
 import { AppState } from 'src/app/store/app.state';
 import { EmployeeActions, EmployeeSelectors } from 'src/app/store/employee';
 
@@ -11,7 +12,7 @@ import { EmployeeActions, EmployeeSelectors } from 'src/app/store/employee';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EmployeesPageComponent implements OnInit {
-  employees$!: Observable<any>;
+  employees$!: Observable<Employee[]>;
   loadingEmployees$!: Observable<boolean>;
   selectedEmployeesMap$!: Observable<{ [key: string]: boolean }>;
 
