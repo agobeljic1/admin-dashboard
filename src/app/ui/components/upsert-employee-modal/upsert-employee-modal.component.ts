@@ -46,7 +46,7 @@ export class UpsertEmployeeModalComponent implements OnInit {
   }
 
   private populateForm(): void {
-    if (!this.data.user) {
+    if (!this.data.employee) {
       return;
     }
     const { id, displayName, ...formValues } = this.data.employee;

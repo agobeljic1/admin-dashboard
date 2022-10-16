@@ -19,7 +19,7 @@ module.exports = function (app, db) {
   app.put("/employees", (req, res) => {
     const { id, name, birthDate, address } = req.body;
 
-    db.food
+    db.employee
       .update(
         {
           name,
@@ -70,6 +70,21 @@ module.exports = function (app, db) {
       })
       .catch((e) => {
         res.status(500).json({ error: "Failed to fetch employees" });
+      });
+  });
+
+  app.get("/employees/:id", async (req, res) => {
+    const { id } = req.params;
+    db.employee
+      .findOne({
+        attributes: ["id", "name", "birthDate", "address"],
+        where: { id },
+      })
+      .then((employee) => {
+        res.json({ employee });
+      })
+      .catch((e) => {
+        res.status(500).json({ error: "Failed to fetch employeee" });
       });
   });
 };

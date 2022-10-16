@@ -29,7 +29,9 @@ export class EmployeesPageComponent implements OnInit {
   }
 
   openCreateNewEmployeeModal() {
-    this.store.dispatch(EmployeeActions.openUpsertmployeeModal());
+    this.store.dispatch(
+      EmployeeActions.openUpsertEmployeeModal({ employee: null })
+    );
   }
 
   onClickEmployee({ id }) {

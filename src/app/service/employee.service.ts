@@ -13,6 +13,12 @@ export class EmployeeService {
     return this.httpClient.get<{ employees: Employee[] }>('/employees');
   };
 
+  getEmployeeById = (employeeId: string) => {
+    return this.httpClient.get<{ employee: Employee }>(
+      `/employees/${employeeId}`
+    );
+  };
+
   createEmployee = (employee) => {
     return this.httpClient.post('/employees', employee);
   };

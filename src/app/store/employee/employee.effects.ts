@@ -32,17 +32,41 @@ export class EmployeeEffects {
     )
   );
 
-  openLogin$ = createEffect(() =>
+  employeeById$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(EmployeeActions.openUpsertmployeeModal),
-      tap(() =>
+      ofType(EmployeeActions.loadEmployeeByIdFromRoute),
+      switchMap(({ employeeId }) => {
+        return this.employeeService.getEmployeeById(employeeId).pipe(
+          map(({ employee }) => {
+            return EmployeeActions.loadEmployeeByIdFromRouteSuccess({
+              employee,
+            });
+          }),
+          catchError(() =>
+            of(
+              EmployeeActions.loadEmployeeByIdFromRouteFailure({
+                message: 'Failed to load employee',
+              })
+            )
+          )
+        );
+      })
+    )
+  );
+
+  openUpsertEmployee$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(EmployeeActions.openUpsertEmployeeModal),
+      tap(({ employee }) =>
         this.dialog.open(UpsertEmployeeModalComponent, {
           width: '450px',
           disableClose: true,
-          data: {},
+          data: {
+            employee,
+          },
         })
       ),
-      map(() => EmployeeActions.openUpsertmployeeModalSuccess())
+      map(() => EmployeeActions.openUpsertEmployeeModalSuccess())
     )
   );
 
@@ -76,6 +100,7 @@ export class EmployeeEffects {
           map(() => {
             return EmployeeActions.updateEmployeeSuccess({
               message: 'Successfully updated employee',
+              employeeId: employee.id,
             });
           }),
           catchError(() => {
@@ -94,7 +119,7 @@ export class EmployeeEffects {
     this.actions$.pipe(
       ofType(EmployeeActions.deleteEmployee),
       switchMap(({ employee }) => {
-        return this.employeeService.deleteEmployee(employee).pipe(
+        return this.employeeService.deleteEmployee(employee.id).pipe(
           map(() => {
             return EmployeeActions.deleteEmployeeSuccess({
               message: 'Successfully deleted employee',
@@ -121,6 +146,14 @@ export class EmployeeEffects {
     )
   );
 
+  redirectToEmployees$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(EmployeeActions.deleteEmployeeSuccess),
+      tap(() => this.router.navigateByUrl('employees')),
+      map(() => EmployeeActions.redirectToEmployeesSuccess())
+    )
+  );
+
   closeAllDialogs$ = createEffect(() =>
     this.actions$.pipe(
       ofType(
@@ -137,6 +170,17 @@ export class EmployeeEffects {
       ofType(EmployeeActions.openEmployeeDetails),
       tap(({ employeeId }) => this.router.navigate(['employees', employeeId])),
       map(() => EmployeeActions.closeAllDialogsSuccess())
+    )
+  );
+
+  refetchEmployee$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(EmployeeActions.updateEmployeeSuccess),
+      map(({ employeeId }) => {
+        return EmployeeActions.loadEmployeeByIdFromRoute({
+          employeeId,
+        });
+      })
     )
   );
 }

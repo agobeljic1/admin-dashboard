@@ -1,11 +1,18 @@
 import { createReducer, on } from '@ngrx/store';
 import { Employee } from 'src/app/model/Employee';
+import { Shift } from 'src/app/model/Shift';
 import {
   deleteEmployee,
   deleteEmployeeFailure,
   deleteEmployeeSuccess,
+  loadEmployeeByIdFromRoute,
+  loadEmployeeByIdFromRouteFailure,
+  loadEmployeeByIdFromRouteSuccess,
   loadEmployees,
   loadEmployeesFailure,
+  loadEmployeeShiftsByIdFromRoute,
+  loadEmployeeShiftsByIdFromRouteFailure,
+  loadEmployeeShiftsByIdFromRouteSuccess,
   loadEmployeesSuccess,
 } from './employee.actions';
 
@@ -14,6 +21,10 @@ export interface EmployeesState {
   loadingEmployees: boolean;
   loadingUpsertEmployee: boolean;
   loadingDeleteEmployee: boolean;
+  employeeById: Employee | null;
+  employeeShiftsById: Shift[];
+  loadingEmployeeById: boolean;
+  loadingEmployeeShiftsById: boolean;
 }
 
 export const initialState: EmployeesState = {
@@ -21,6 +32,10 @@ export const initialState: EmployeesState = {
   loadingEmployees: false,
   loadingUpsertEmployee: false,
   loadingDeleteEmployee: false,
+  employeeById: null,
+  employeeShiftsById: [],
+  loadingEmployeeById: false,
+  loadingEmployeeShiftsById: false,
 };
 
 export const employeesReducer = createReducer(
@@ -49,5 +64,31 @@ export const employeesReducer = createReducer(
   on(deleteEmployeeFailure, (state) => ({
     ...state,
     loadingDeleteEmployee: false,
+  })),
+  on(loadEmployeeByIdFromRoute, (state: EmployeesState) => ({
+    ...state,
+    loadingEmployeeById: true,
+  })),
+  on(loadEmployeeByIdFromRouteSuccess, (state, { employee }) => ({
+    ...state,
+    loadingEmployeeById: false,
+    employeeById: employee,
+  })),
+  on(loadEmployeeByIdFromRouteFailure, (state) => ({
+    ...state,
+    loadingEmployeeById: false,
+  })),
+  on(loadEmployeeShiftsByIdFromRoute, (state: EmployeesState) => ({
+    ...state,
+    loadingEmployeeShiftsById: true,
+  })),
+  on(loadEmployeeShiftsByIdFromRouteSuccess, (state, { shifts }) => ({
+    ...state,
+    loadingEmployeeShiftsById: false,
+    employeeShiftsById: shifts,
+  })),
+  on(loadEmployeeShiftsByIdFromRouteFailure, (state) => ({
+    ...state,
+    loadingEmployeeShiftsById: false,
   }))
 );

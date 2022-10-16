@@ -1,1 +1,45 @@
-<p>employee-details-page works!</p>
+<ng-container *ngrxLet="employee$; let employee">
+  <ng-container *ngrxLet="loading$; let loading">
+    <div class="d-flex align-items-center justify-content-between w-full">
+      <div>
+        <h2>Employee details</h2>
+        <mat-spinner [diameter]="30" *ngIf="loading"></mat-spinner>
+      </div>
+      <div class="employee-option-buttons">
+        <button
+          mat-raised-button
+          color="warn"
+          (click)="deleteEmployee(employee)"
+        >
+          Delete Employee
+        </button>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="updateEmployee(employee)"
+        >
+          Update Employee
+        </button>
+      </div>
+    </div>
+    <div class="employee-details">
+      <div class="employee-details-row d-flex align-items-center">
+        <label class="details-key">Id:</label>
+        <label>{{ employee?.id || "" }}</label>
+      </div>
+
+      <div class="organization-details-row d-flex align-items-center">
+        <label class="details-key">Name:</label>
+        <label>{{ employee?.name || "" }}</label>
+      </div>
+      <div class="organization-details-row d-flex align-items-center">
+        <label class="details-key">Birth Date:</label>
+        <label>{{ employee?.birthDate || "" }}</label>
+      </div>
+      <div class="organization-details-row d-flex align-items-center">
+        <label class="details-key">Address:</label>
+        <label>{{ employee?.address || "" }}</label>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

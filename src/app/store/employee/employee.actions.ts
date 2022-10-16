@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Employee } from 'src/app/model/Employee';
+import { Shift } from 'src/app/model/Shift';
 
 export const loadEmployees = createAction('[Employee Page] Load Employees');
 
@@ -12,11 +13,12 @@ export const loadEmployeesFailure = createAction(
   '[Employee API] Employee Load Failure'
 );
 
-export const openUpsertmployeeModal = createAction(
-  '[Upsert Employee Modal] Open Upsert Employee Modal'
+export const openUpsertEmployeeModal = createAction(
+  '[Upsert Employee Modal] Open Upsert Employee Modal',
+  props<{ employee: Employee | null }>()
 );
 
-export const openUpsertmployeeModalSuccess = createAction(
+export const openUpsertEmployeeModalSuccess = createAction(
   '[Upsert Employee Modal] Open Upsert Employee Success'
 );
 
@@ -46,7 +48,7 @@ export const updateEmployee = createAction(
 
 export const updateEmployeeSuccess = createAction(
   '[Employee API] Update Employee Success',
-  props<{ message: string }>()
+  props<{ message: string; employeeId: string }>()
 );
 
 export const updateEmployeeFailure = createAction(
@@ -76,4 +78,38 @@ export const closeAllDialogsSuccess = createAction(
 export const openEmployeeDetails = createAction(
   '[Employees page] Open Employee Details',
   props<{ employeeId: string }>()
+);
+
+export const loadEmployeeByIdFromRoute = createAction(
+  '[Employee Details Page] Load Employee By Id From Route',
+  props<{ employeeId: string }>()
+);
+
+export const loadEmployeeByIdFromRouteSuccess = createAction(
+  '[Employee Details Page] Load Employee By Id From Route Success',
+  props<{ employee: Employee }>()
+);
+
+export const loadEmployeeByIdFromRouteFailure = createAction(
+  '[Employee Details Page] Load Employee By Id From Route Failure',
+  props<{ message: string }>()
+);
+
+export const loadEmployeeShiftsByIdFromRoute = createAction(
+  '[Employee Details Page] Load Employee Shifts By Id From Route',
+  props<{ employeeId: string }>()
+);
+
+export const loadEmployeeShiftsByIdFromRouteSuccess = createAction(
+  '[Employee Details Page] Load Employee Shifts By Id From Route Success',
+  props<{ shifts: Shift[] }>()
+);
+
+export const loadEmployeeShiftsByIdFromRouteFailure = createAction(
+  '[Employee Details Page] Load Employee Shifts By Id From Route Failure',
+  props<{ message: string }>()
+);
+
+export const redirectToEmployeesSuccess = createAction(
+  '[Employee Details Page] Redirect to Employees Success'
 );
