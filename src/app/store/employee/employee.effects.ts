@@ -194,7 +194,7 @@ export class EmployeeEffects {
         EmployeeActions.createEmployeeFailure,
         EmployeeActions.updateEmployeeSuccess,
         EmployeeActions.updateEmployeeFailure,
-        EmployeeActions.deleteEmployeeFailure,
+        EmployeeActions.deleteEmployeeSuccess,
         EmployeeActions.deleteEmployeeFailure
       ),
       tap(({ message }) => this.snackBar.open(message, '', { duration: 3000 })),

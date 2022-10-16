@@ -42,16 +42,23 @@ module.exports = function (app, db) {
       res.status(400).json({ success: false });
       return;
     }
-    db.employee
-      .destroy({ where: { id } })
-      .then((deleteCount) => {
-        if (deleteCount) {
-          res.status(200).json({ success: true });
-        } else {
-          res.status(404).json({ error: "Employee not found" });
-        }
+    db.shift
+      .destroy({ where: { employeeId: id } })
+      .then(() => {
+        db.employee
+          .destroy({ where: { id } })
+          .then((deleteCount) => {
+            if (deleteCount) {
+              res.status(200).json({ success: true });
+            } else {
+              res.status(404).json({ error: "Employee not found" });
+            }
+          })
+          .catch((e) => {
+            res.status(500).json({ error: "Failed to delete employee" });
+          });
       })
-      .catch(() => {
+      .catch((e) => {
         res.status(500).json({ error: "Failed to delete employee" });
       });
   });
